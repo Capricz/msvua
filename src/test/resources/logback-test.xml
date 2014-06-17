@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property resource="app.properties"/>
+    <contextName>${contextName}</contextName>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned the type
+             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36}:%line - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${user.home}/${contextName}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <fileNamePattern>${user.home}/${contextName}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 500MB -->
+                <maxFileSize>500MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!-- keep 5 days' worth of history -->
+            <maxHistory>5</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <!-- <pattern>%date %level %contextName [%thread] %logger{10} [%file : %line] %msg%n</pattern> -->
+            <pattern>%date %level %contextName [%file : %line] %msg%n</pattern>
+        </encoder>
+    </appender>
+    
+    <logger name="backtype.storm" level="ERROR" />
+
+    <logger name="com.hp.datamigration" level="warn">
+        <appender-ref ref="FILE"/>
+    </logger>
+    
+    <logger name="com.hp.datamigration.trans.MSVTransactionalTopology" level="info"/>
+    
+    <logger name="com.hp.datamigration.trans.spout" level="info"/>
+    
+    <logger name="com.hp.datamigration.trans.bolt" level="info"/>
+    
+    <logger name="com.hp.datamigration.trans.dao" level="info"/>
+    
+    <logger name="com.hp.datamigration.trans.util" level="info"/>
+    
+    <logger name="com.hp.datamigration.trans.dao.MongoManager" level="info"/>
+    
+    <logger name="com.hp.datamigration.trans.dao.VerticaManager" level="info"/>
+
+    <root level="warn">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
