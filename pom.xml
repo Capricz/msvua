@@ -57,11 +57,16 @@
           <version>2.12.0</version>
       </dependency>
       
-      <dependency>
+      <!-- <dependency>
         	<groupId>com.vertica</groupId>
         	<artifactId>vertica-jdbc</artifactId>
         	<version>7.0.1-0</version>
-    	</dependency>
+    	</dependency> -->
+    	<dependency>
+		  <groupId>org.clojars.prepor</groupId>
+		  <artifactId>vertica-jdbc</artifactId>
+		  <version>7.0.1-0</version>
+		</dependency>
 
   </dependencies>
 </project>
